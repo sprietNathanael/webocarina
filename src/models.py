@@ -9,6 +9,9 @@ engine = create_engine("sqlite:///database.sqlite3", echo=False)
 
 
 class TypeOcarina(Base):
+    """
+    Class TypeOcarina
+    """
     __tablename__ = 'typeOcarina'
     id_type_ocarina = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
@@ -17,18 +20,20 @@ class TypeOcarina(Base):
 
     def __init__(self, name, hole_nb):
         self.id_type_ocarina = None
-        if name != "":
+        if name is not None and name != "":
             self.name = name
         else:
-            raise ValueError
+            raise AttributeError
         try:
             hole_nb = int(hole_nb)
-        except VMSError:
-            raise
+        except ValueError:
+            raise AttributeError
+        except TypeError:
+            raise AttributeError
         if hole_nb > 0:
             self.hole_nb = hole_nb
         else:
-            raise ValueError
+            raise AttributeError
 
     def toCSV(self):
         return ("{};{}".format(self.name, self.hole_nb))
@@ -45,7 +50,10 @@ class TypeMedia(Base):
 
     def __init__(self, name):
         self.id_type_media = None
-        self.name = name
+        if name is not None and name != "":
+            self.name = name
+        else:
+            raise AttributeError
 
     def toCSV(self):
         return ("{}".format(self.name))
@@ -62,10 +70,10 @@ class Performer(Base):
 
     def __init__(self, name):
         self.id_performer = None
-        if name != "":
+        if name is not None and name != "":
             self.name = name
         else:
-            raise ValueError
+            raise AttributeError
 
     def toCSV(self):
         return ("{}".format(self.name))
@@ -85,15 +93,18 @@ class Media(Base):
 
     def __init__(self, name, length, fk_id_type_media):
         self.id_media = None
-        if name != "":
+        if name is not None and name != "":
             self.name = name
         else:
-            raise ValueError
-        if length != "":
+            raise AttributeError
+        if length is not None and type(length) is not None and length > 0:
             self.length = length
         else:
-            raise ValueError
-        self.fk_id_type_media = fk_id_type_media
+            raise AttributeError
+        if fk_id_type_media is not None and type(fk_id_type_media) is int:
+            self.fk_id_type_media = fk_id_type_media
+        else:
+            raise AttributeError
 
     def toCSV(self):
         return ("{};{};{}".format(self.name, self.length, self.fk_id_type_media))
@@ -114,14 +125,26 @@ class Occurrence(Base):
     performer = relationship("Performer")
 
     def __init__(self, fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer):
-        self.fk_id_media = fk_id_media
-        self.fk_id_type_ocarina = fk_id_type_ocarina
-        if length != "":
+        if fk_id_media is not None and type(fk_id_media) is int:
+            self.fk_id_media = fk_id_media
+        else:
+            raise AttributeError
+        if fk_id_type_ocarina is not None and type(fk_id_type_ocarina) is int:
+            self.fk_id_type_ocarina = fk_id_type_ocarina
+        else:
+            raise AttributeError
+        if length is not None and type(length) is int and length > 0:
             self.length = length
         else:
-            raise ValueError
-        self.comment = comment
-        self.fk_id_performer = fk_id_performer
+            raise AttributeError
+        if comment is not None:
+            self.comment = comment
+        else:
+            raise AttributeError
+        if fk_id_performer is not None and type(fk_id_performer) is int:
+            self.fk_id_performer = fk_id_performer
+        else:
+            raise AttributeError
 
     def toCSV(self):
         return ("{};{};{};{};{}".format(self.fk_id_media, self.fk_id_type_ocarina, self.length, self.comment, self.fk_id_performer))

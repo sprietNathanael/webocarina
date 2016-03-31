@@ -69,7 +69,7 @@ class Main(object):
                 else:
                     try:
                         self.typeOcarina_orm.insert(nom, holes_nb)
-                    except ValueError:
+                    except AttributeError:
                         print("Impossible d'enregistrer ce type d'ocarina")
             elif i == "8":
                 try:
@@ -82,7 +82,7 @@ class Main(object):
                 else:
                     try:
                         self.performer_orm.insert(nom)
-                    except ValueError:
+                    except AttributeError:
                         print("Impossible d'enregistrer cet interprète")
             elif i == "9":
                 try:
@@ -95,7 +95,7 @@ class Main(object):
                 else:
                     try:
                         self.typeMedia_orm.insert(nom)
-                    except ValueError:
+                    except AttributeError:
                         print("Impossible d'enregistrer ce type de média")
             elif i == "10":
                 j = 0
@@ -119,7 +119,7 @@ class Main(object):
                                 pass
                             else:
                                 valid = True
-                        except ValueError:
+                        except AttributeError:
                             pass
                 except KeyboardInterrupt:
                     pass
@@ -129,7 +129,7 @@ class Main(object):
                     if(int(typeMedia) != 0):
                         try:
                             self.media_orm.insert(nom, length, typeMediaArray[int(typeMedia)-1].id_type_media)
-                        except ValueError:
+                        except AttributeError:
                             print("Impossible d'enregistrer cet interprète")
                     else:
                         pass
@@ -150,7 +150,7 @@ class Main(object):
                                 pass
                             else:
                                 valid = True
-                        except ValueError:
+                        except AttributeError:
                             pass
                     typeOcarinaArray = self.typeOcarina_orm.findAll()
                     valid = False
@@ -166,7 +166,7 @@ class Main(object):
                                 pass
                             else:
                                 valid = True
-                        except ValueError:
+                        except AttributeError:
                             pass
                     invite = "Entrez la durée : "
                     length = (input(invite))
@@ -186,7 +186,7 @@ class Main(object):
                                 pass
                             else:
                                 valid = True
-                        except ValueError:
+                        except AttributeError:
                             pass
                 except KeyboardInterrupt:
                     pass
@@ -195,7 +195,7 @@ class Main(object):
                 else:
                     try:
                         self.occurrence_orm.insert(mediaArray[int(media)-1].id_media, typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina, length, comment, performerArray[int(performer)-1].id_performer)
-                    except ValueError:
+                    except AttributeError:
                         print("Impossible d'enregistrer cet interprète")
             elif i == "12":
                 invite = "Entrez le fichier à enregistrer : "
@@ -239,21 +239,21 @@ class Main(object):
                             try:
                                 self.typeOcarina_orm.insert(data[0], data[1])
                                 line = f.readline()
-                            except ValueError:
+                            except AttributeError:
                                 print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
                             try:
                                 self.typeMedia_orm.insert(line)
                                 line = f.readline()
-                            except ValueError:
+                            except AttributeError:
                                 print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
                             try:
                                 self.performer_orm.insert(line)
                                 line = f.readline()
-                            except ValueError:
+                            except AttributeError:
                                 print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
@@ -261,7 +261,7 @@ class Main(object):
                             try:
                                 self.media_orm.insert(data[0], data[1], data[2])
                                 line = f.readline()
-                            except ValueError:
+                            except AttributeError:
                                 print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
@@ -269,7 +269,7 @@ class Main(object):
                             try:
                                 self.occurrence_orm.insert(data[0], data[1], data[2], data[3], data[4])
                                 line = f.readline()
-                            except ValueError:
+                            except AttributeError:
                                 print("Impossible d'ouvrir le fichier ", path)            
 
                     f.close()

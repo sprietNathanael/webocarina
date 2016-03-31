@@ -57,7 +57,10 @@ class TypeOcarinaORM(BaseORM):
         pass
 
     def insert(self, name, hole_nb):
-        typeOcarina = TypeOcarina(name, hole_nb)
+        try:
+            typeOcarina = TypeOcarina(name, hole_nb)
+        except AttributeError:
+            raise
         self.session.add(typeOcarina)
         self.session.commit()
 
