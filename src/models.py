@@ -97,11 +97,24 @@ class Media(Base):
             self.name = name
         else:
             raise AttributeError
-        if length is not None and type(length) is not None and length > 0:
+        try:
+            length = int(length)
+        except ValueError:
+            raise AttributeError
+        except TypeError:
+            raise AttributeError
+        if length > 0:
             self.length = length
         else:
             raise AttributeError
-        if fk_id_type_media is not None and type(fk_id_type_media) is int:
+
+        try:
+            fk_id_type_media = int(fk_id_type_media)
+        except ValueError:
+            raise AttributeError
+        except TypeError:
+            raise AttributeError
+        if fk_id_type_media > 0:
             self.fk_id_type_media = fk_id_type_media
         else:
             raise AttributeError
@@ -125,23 +138,51 @@ class Occurrence(Base):
     performer = relationship("Performer")
 
     def __init__(self, fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer):
-        if fk_id_media is not None and type(fk_id_media) is int:
+        try:
+            fk_id_media = int(fk_id_media)
+        except ValueError:
+            raise AttributeError
+        except TypeError:
+            raise AttributeError
+        if fk_id_media > 0:
             self.fk_id_media = fk_id_media
         else:
             raise AttributeError
-        if fk_id_type_ocarina is not None and type(fk_id_type_ocarina) is int:
+
+        try:
+            fk_id_type_ocarina = int(fk_id_type_ocarina)
+        except ValueError:
+            raise AttributeError
+        except TypeError:
+            raise AttributeError
+        if fk_id_type_ocarina > 0:
             self.fk_id_type_ocarina = fk_id_type_ocarina
         else:
             raise AttributeError
-        if length is not None and type(length) is int and length > 0:
+
+        try:
+            length = int(length)
+        except ValueError:
+            raise AttributeError
+        except TypeError:
+            raise AttributeError
+        if length > 0:
             self.length = length
         else:
             raise AttributeError
+
         if comment is not None:
             self.comment = comment
         else:
             raise AttributeError
-        if fk_id_performer is not None and type(fk_id_performer) is int:
+
+        try:
+            fk_id_performer = int(fk_id_performer)
+        except ValueError:
+            raise AttributeError
+        except TypeError:
+            raise AttributeError
+        if fk_id_performer > 0:
             self.fk_id_performer = fk_id_performer
         else:
             raise AttributeError
