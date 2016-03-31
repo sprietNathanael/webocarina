@@ -1,9 +1,11 @@
 
 from sqlalchemy import Integer, ForeignKey, String, Column, Date
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 Base = declarative_base()
+engine = create_engine("sqlite:///database.sqlite3", echo=False)
 
 
 class TypeOcarina(Base):
@@ -15,8 +17,21 @@ class TypeOcarina(Base):
 
     def __init__(self, name, hole_nb):
         self.id_type_ocarina = None
-        self.name = name
-        self.hole_nb = hole_nb
+        if name != "":
+            self.name = name
+        else:
+            raise ValueError
+        try:
+            hole_nb = int(hole_nb)
+        except VMSError:
+            raise
+        if hole_nb > 0:
+            self.hole_nb = hole_nb
+        else:
+            raise ValueError
+
+    def toCSV(self):
+        return ("{};{}".format(self.name, self.hole_nb))
 
     def __str__(self):
         return ("n° {} ; nom : {} ; nombres Trous : {}".format(self.id_type_ocarina, self.name, self.hole_nb))
@@ -32,6 +47,9 @@ class TypeMedia(Base):
         self.id_type_media = None
         self.name = name
 
+    def toCSV(self):
+        return ("{}".format(self.name))
+
     def __str__(self):
         return ("n° {} ; name : {}".format(self.id_type_media, self.name))
 
@@ -44,7 +62,13 @@ class Performer(Base):
 
     def __init__(self, name):
         self.id_performer = None
-        self.name = name
+        if name != "":
+            self.name = name
+        else:
+            raise ValueError
+
+    def toCSV(self):
+        return ("{}".format(self.name))
 
     def __str__(self):
         return ("n° {} ; nom : {}".format(self.id_performer, self.name))
@@ -61,9 +85,18 @@ class Media(Base):
 
     def __init__(self, name, length, fk_id_type_media):
         self.id_media = None
-        self.name = name
-        self.length = length
-        fk_id_type_media = fk_id_type_media
+        if name != "":
+            self.name = name
+        else:
+            raise ValueError
+        if length != "":
+            self.length = length
+        else:
+            raise ValueError
+        self.fk_id_type_media = fk_id_type_media
+
+    def toCSV(self):
+        return ("{};{};{}".format(self.name, self.length, self.fk_id_type_media))
 
     def __str__(self):
         return ("n° {} ; nom : {} ; durée : {} ; type :  ( {} )".format(self.id_media, self.name, self.length, self.typeMedia))
@@ -83,9 +116,17 @@ class Occurrence(Base):
     def __init__(self, fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer):
         self.fk_id_media = fk_id_media
         self.fk_id_type_ocarina = fk_id_type_ocarina
-        self.length = length
+        if length != "":
+            self.length = length
+        else:
+            raise ValueError
         self.comment = comment
         self.fk_id_performer = fk_id_performer
 
+    def toCSV(self):
+        return ("{};{};{};{};{}".format(self.fk_id_media, self.fk_id_type_ocarina, self.length, self.comment, self.fk_id_performer))
+
     def __str__(self):
         return ("media : ( {} ) ; ocarina : ( {} ) ; durée : {} ; commentaire : {}  ; interprète : ( {} )".format(self.media, self.typeOcarina, self.length, self.comment, self.performer))
+
+Base.metadata.create_all(engine)
