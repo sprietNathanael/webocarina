@@ -71,6 +71,14 @@ class TypeOcarinaORM(BaseORM):
         # TODO
         pass
 
+    def getMaxPerformer(self, id):
+        return(self.session.query(Performer).get(\
+            self.session.query(Occurrence.fk_id_performer).\
+            group_by(Occurrence.fk_id_performer).\
+            filter(Occurrence.fk_id_type_ocarina == id).\
+            order_by(desc(func.\
+                count(Occurrence.fk_id_performer))).first()))
+
 
 class PerformerORM(BaseORM):
 
@@ -106,11 +114,11 @@ class PerformerORM(BaseORM):
         # TODO
         pass
 
-    def getFavouriteTypeOcarina(self, name):
+    def getFavouriteTypeOcarina(self, id):
         return(self.session.query(TypeOcarina).get(\
             self.session.query(Occurrence.fk_id_type_ocarina).\
             group_by(Occurrence.fk_id_type_ocarina).\
-            filter(Occurrence.fk_id_performer == name).\
+            filter(Occurrence.fk_id_performer == id).\
             order_by(desc(func.\
                 count(Occurrence.fk_id_type_ocarina))).first()))
 
@@ -148,6 +156,8 @@ class TypeMediaORM(BaseORM):
     def delete(self):
         # TODO
         pass
+
+    
 
 
 class MediaORM(BaseORM):

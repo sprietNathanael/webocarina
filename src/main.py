@@ -30,6 +30,7 @@ class Main(object):
         print("12. Export vers CSV")
         print("13. Import depuis CSV")
         print("14. Type d'ocarina préféré d'un interprète")
+        print("15. Interprête ayant le plus joué d'un Type d'ocarina")
         print("255. Quitter")
 
     def quitter(self):
@@ -298,8 +299,38 @@ class Main(object):
                 except EOFError:
                     pass
                 else:
-                    print(self.performer_orm.getFavouriteTypeOcarina(performerArray[int(performer)-1].id_performer))
-
+                    try:
+                        print(self.performer_orm.getFavouriteTypeOcarina(performerArray[int(performer)-1].id_performer))
+                    except TypeError:
+                        print("Cet interprète n'a jamais joué d'ocarina")
+            elif i == "15":
+                j = 0
+                try:
+                    ocarinaArray = self.typeOcarina_orm.findAll()
+                    valid = False
+                    while not valid:
+                        j = 0
+                        for t in ocarinaArray:
+                            j += 1
+                            print("{} - {}".format(j, t.name))
+                        invite = "Rentrez l'ocarina' : "
+                        ocarina = (input(invite))
+                        try:
+                            if(int(ocarina) < 1 or int(ocarina) > j):
+                                pass
+                            else:
+                                valid = True
+                        except AttributeError:
+                            pass
+                except KeyboardInterrupt:
+                    pass
+                except EOFError:
+                    pass
+                else:
+                    try:
+                        print(self.typeOcarina_orm.getMaxPerformer(ocarinaArray[int(ocarina)-1].id_type_ocarina))
+                    except TypeError:
+                        print("Aucun interprète n'a joué de cet ocarina")
             elif i == "255":
                 self.quitter()
             else:
