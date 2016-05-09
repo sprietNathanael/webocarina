@@ -1,5 +1,8 @@
 import os.path
 from sqlalchemy import create_engine
+from sqlalchemy import func
+from sqlalchemy import desc
+from sqlalchemy import asc
 from sqlalchemy import and_
 from sqlalchemy.orm import sessionmaker
 from models import *
@@ -40,7 +43,7 @@ class TypeOcarinaORM(BaseORM):
     def __str__(self):
         s = ''
         for typeOcarina in self.session.query(TypeOcarina):
-            s = s + str(typeOcarina)  + "\n"
+            s = s + str(typeOcarina) + "\n"
         return s
 
     def toCSV(self):
@@ -102,6 +105,14 @@ class PerformerORM(BaseORM):
     def delete(self):
         # TODO
         pass
+
+    def getFavouriteTypeOcarina(self, name):
+        return(self.session.query(TypeOcarina).get(\
+            self.session.query(Occurrence.fk_id_type_ocarina).\
+            group_by(Occurrence.fk_id_type_ocarina).\
+            filter(Occurrence.fk_id_performer == name).\
+            order_by(desc(func.\
+                count(Occurrence.fk_id_type_ocarina))).first()))
 
 
 class TypeMediaORM(BaseORM):
@@ -200,7 +211,8 @@ class OccurrenceORM(BaseORM):
         pass
 
     def insert(self, fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer):
-        occurrence = Occurrence(fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer)
+        occurrence = Occurrence(
+            fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer)
         self.session.add(occurrence)
         self.session.commit()
 

@@ -29,6 +29,7 @@ class Main(object):
         print("11. Ajouter une occurence")
         print("12. Export vers CSV")
         print("13. Import depuis CSV")
+        print("14. Type d'ocarina préféré d'un interprète")
         print("255. Quitter")
 
     def quitter(self):
@@ -273,6 +274,32 @@ class Main(object):
                                 print("Impossible d'ouvrir le fichier ", path)            
 
                     f.close()
+            elif i == "14":
+                j = 0
+                try:
+                    performerArray = self.performer_orm.findAll()
+                    valid = False
+                    while not valid:
+                        j = 0
+                        for t in performerArray:
+                            j += 1
+                            print("{} - {}".format(j, t.name))
+                        invite = "Rentrez l'interprète' : "
+                        performer = (input(invite))
+                        try:
+                            if(int(performer) < 1 or int(performer) > j):
+                                pass
+                            else:
+                                valid = True
+                        except AttributeError:
+                            pass
+                except KeyboardInterrupt:
+                    pass
+                except EOFError:
+                    pass
+                else:
+                    print(self.performer_orm.getFavouriteTypeOcarina(performerArray[int(performer)-1].id_performer))
+
             elif i == "255":
                 self.quitter()
             else:
