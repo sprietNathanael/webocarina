@@ -6,8 +6,8 @@ Projet personnel de Python - Licence professionnelle CASIR
 
 ##Étapes :
 
-- [ ] Visualisation simple des données sans aucun tri possible
-- [ ] Saisie et enregistrement des différentes données
+- [X] Visualisation simple des données sans aucun tri possible
+- [X] Saisie et enregistrement des différentes données
 - [ ] Ajout des tris :
 	- [ ] Quel est le type d'ocarina préféré d'un interprète
 	- [ ] Quel est l'interprète ayant le plus joué d'un type ocarina
