@@ -167,6 +167,34 @@ class PerformerORM(BaseORM):
             order_by(desc(func.
                           count(Occurrence.fk_id_type_ocarina))).first()))
 
+    def getAverageLength(self, performer):
+        average = self.session.query(func.avg(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        if(type(average) is int or type(average) is float):
+            return(average)
+        else:
+            return(0)
+
+    def getMinLength(self, performer):
+        minimum = self.session.query(func.min(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        if(type(minimum) is int or type(minimum) is float):
+            return(minimum)
+        else:
+            return(0)
+
+    def getMaxLength(self, performer):
+        maximum = self.session.query(func.max(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        if(type(maximum) is int or type(maximum) is float):
+            return(maximum)
+        else:
+            return(0)
+
+    def getTotalLength(self, performer):
+        total = self.session.query(func.sum(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        if(type(total) is int or type(total) is float):
+            return(total)
+        else:
+            return(0)
+
 
 class TypeMediaORM(BaseORM):
 
