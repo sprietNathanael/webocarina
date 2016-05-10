@@ -17,6 +17,12 @@ class Main(object):
             self.afficherMenu()
             self.validerMenu()
 
+    def afficherMenuInfo(self):
+        print("1. Durée moyenne")
+        print("2. Durée minimum")
+        print("3. Durée maximum")
+        print("3. Durée totale")
+
     def afficherMenu(self):
         print("1. Bonjour")
         print("2. Afficher tous les types d'ocarina")
@@ -36,6 +42,7 @@ class Main(object):
         print("16. Type d'ocarina le plus utilisé pour un type de média")
         print("17. Type de media le plus joué avec un type d'ocarina")
         print("18. Proportion d'un type d'ocarina dans un média")
+        print("19. Informations sur un type d'ocarina")
         print("255. Quitter")
 
     def quitter(self):
@@ -452,6 +459,58 @@ class Main(object):
                     else:
                         print("{:3.2f} %".format(self.media_orm.typeOcarinaProportion(mediaArray[
                               int(media)-1].id_media, typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina)))
+            elif i == "19":
+                j = 0
+                try:
+                    typeOcarinaArray = self.typeOcarina_orm.findAll()
+                    valid = False
+                    while not valid:
+                        j = 0
+                        for t in typeOcarinaArray:
+                            j += 1
+                            print("{} - {}".format(j, t.name))
+                        invite = "Rentrez l'ocarina' : "
+                        typeOcarina = (input(invite))
+                        try:
+                            if(int(typeOcarina) < 1 or int(typeOcarina) > j):
+                                pass
+                            else:
+                                valid = True
+                        except AttributeError:
+                            pass
+                    valid = False
+                    try:
+                        while not valid:
+                            self.afficherMenuInfo()
+                            invite = "Faites votre choix : "
+                            valid = False
+                            choice = (input(invite))
+                            valid = True
+                            if(choice == "1"):
+                                print("{:2.0f} min".format(self.typeOcarina_orm.getAverageLength(
+                                    typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina)))
+                            elif(choice == "2"):
+                                print("{:2.0f} min".format(self.typeOcarina_orm.getMinLength(
+                                    typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina)))
+                            elif(choice == "3"):
+                                print("{:2.0f} min".format(self.typeOcarina_orm.getMaxLength(
+                                    typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina)))
+                            elif(choice == "4"):
+                                print("{:2.0f} min".format(self.typeOcarina_orm.getTotalLength(
+                                    typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina)))
+                            else:
+                                valid = False
+                                print("Votre choix est faux !")
+                    except KeyboardInterrupt:
+                        pass
+                    except EOFError:
+                        pass
+                except KeyboardInterrupt:
+                    pass
+                except EOFError:
+                    pass
+                    
+
             elif i == "255":
                 self.quitter()
             else:

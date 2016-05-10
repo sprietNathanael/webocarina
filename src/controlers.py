@@ -96,6 +96,34 @@ class TypeOcarinaORM(BaseORM):
             typeOcarinaArray.append(self.session.query(TypeOcarina).get(i))
         return typeOcarinaArray
 
+    def getAverageLength(self, typeOcarina):
+        average = self.session.query(func.avg(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+        if(type(average) is int or type(average) is float):
+            return(average)
+        else:
+            return(0)
+
+    def getMinLength(self, typeOcarina):
+        minimum = self.session.query(func.min(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+        if(type(minimum) is int or type(minimum) is float):
+            return(minimum)
+        else:
+            return(0)
+
+    def getMaxLength(self, typeOcarina):
+        maximum = self.session.query(func.max(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+        if(type(maximum) is int or type(maximum) is float):
+            return(maximum)
+        else:
+            return(0)
+
+    def getTotalLength(self, typeOcarina):
+        total = self.session.query(func.sum(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+        if(type(total) is int or type(total) is float):
+            return(total)
+        else:
+            return(0)
+
 
 class PerformerORM(BaseORM):
 
