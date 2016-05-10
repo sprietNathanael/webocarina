@@ -79,6 +79,15 @@ class TypeOcarinaORM(BaseORM):
             order_by(desc(func.
                           count(Occurrence.fk_id_performer))).first()))
 
+    def getMaxTypeMedia(self, id):
+        return(self.session.query(TypeMedia).
+               get(self.session.query(Media.fk_id_type_media).
+                   join(Occurrence).
+                   group_by(Media.fk_id_type_media).
+                   filter(Occurrence.fk_id_type_ocarina == id).
+                   order_by(desc(func.
+                                 count(Media.fk_id_type_media))).first()))
+
 
 class PerformerORM(BaseORM):
 

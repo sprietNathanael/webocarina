@@ -32,6 +32,7 @@ class Main(object):
         print("14. Type d'ocarina préféré d'un interprète")
         print("15. Interprête ayant le plus joué d'un Type d'ocarina")
         print("16. Type d'ocarina le plus utilisé pour un type de média")
+        print("17. Type de media le plus joué avec un type d'ocarina")
         print("255. Quitter")
 
     def quitter(self):
@@ -361,6 +362,34 @@ class Main(object):
                         print(self.typeMedia_orm.getFavouriteTypeOcarina(typeMediaArray[int(typeMedia)-1].id_type_media))
                     except TypeError:
                         print("Ce type de média n'a jamais été joué à l'ocarina")
+            elif i == "17":
+                j = 0
+                try:
+                    typeOcarinaArray = self.typeOcarina_orm.findAll()
+                    valid = False
+                    while not valid:
+                        j = 0
+                        for t in typeOcarinaArray:
+                            j += 1
+                            print("{} - {}".format(j, t.name))
+                        invite = "Rentrez le type d'ocarina : "
+                        typeOcarina = (input(invite))
+                        try:
+                            if(int(typeOcarina) < 1 or int(typeOcarina) > j):
+                                pass
+                            else:
+                                valid = True
+                        except AttributeError:
+                            pass
+                except KeyboardInterrupt:
+                    pass
+                except EOFError:
+                    pass
+                else:
+                    try:
+                        print(self.typeOcarina_orm.getMaxTypeMedia(typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina))
+                    except TypeError:
+                        print("Ce type d'ocarina n'a jamais été joué")
             elif i == "255":
                 self.quitter()
             else:
