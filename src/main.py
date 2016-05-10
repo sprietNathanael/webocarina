@@ -4,7 +4,9 @@ from controlers import *
 
 
 class Main(object):
+
     """docstring for Main"""
+
     def __init__(self,):
         self.typeOcarina_orm = TypeOcarinaORM()
         self.typeMedia_orm = TypeMediaORM()
@@ -33,6 +35,7 @@ class Main(object):
         print("15. Interprête ayant le plus joué d'un Type d'ocarina")
         print("16. Type d'ocarina le plus utilisé pour un type de média")
         print("17. Type de media le plus joué avec un type d'ocarina")
+        print("18. Proportion d'un type d'ocarina dans un média")
         print("255. Quitter")
 
     def quitter(self):
@@ -132,7 +135,8 @@ class Main(object):
                 else:
                     if(int(typeMedia) != 0):
                         try:
-                            self.media_orm.insert(nom, length, typeMediaArray[int(typeMedia)-1].id_type_media)
+                            self.media_orm.insert(
+                                nom, length, typeMediaArray[int(typeMedia)-1].id_type_media)
                         except AttributeError:
                             print("Impossible d'enregistrer cet interprète")
                     else:
@@ -198,7 +202,8 @@ class Main(object):
                     pass
                 else:
                     try:
-                        self.occurrence_orm.insert(mediaArray[int(media)-1].id_media, typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina, length, comment, performerArray[int(performer)-1].id_performer)
+                        self.occurrence_orm.insert(mediaArray[int(media)-1].id_media, typeOcarinaArray[int(
+                            typeOcarina)-1].id_type_ocarina, length, comment, performerArray[int(performer)-1].id_performer)
                     except AttributeError:
                         print("Impossible d'enregistrer cet interprète")
             elif i == "12":
@@ -239,42 +244,44 @@ class Main(object):
                         print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
-                            data = line.split(";")
-                            try:
-                                self.typeOcarina_orm.insert(data[0], data[1])
-                                line = f.readline()
-                            except AttributeError:
-                                print("Impossible d'ouvrir le fichier ", path)
+                        data = line.split(";")
+                        try:
+                            self.typeOcarina_orm.insert(data[0], data[1])
+                            line = f.readline()
+                        except AttributeError:
+                            print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
-                            try:
-                                self.typeMedia_orm.insert(line)
-                                line = f.readline()
-                            except AttributeError:
-                                print("Impossible d'ouvrir le fichier ", path)
+                        try:
+                            self.typeMedia_orm.insert(line)
+                            line = f.readline()
+                        except AttributeError:
+                            print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
-                            try:
-                                self.performer_orm.insert(line)
-                                line = f.readline()
-                            except AttributeError:
-                                print("Impossible d'ouvrir le fichier ", path)
+                        try:
+                            self.performer_orm.insert(line)
+                            line = f.readline()
+                        except AttributeError:
+                            print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
-                            data = line.split(";")
-                            try:
-                                self.media_orm.insert(data[0], data[1], data[2])
-                                line = f.readline()
-                            except AttributeError:
-                                print("Impossible d'ouvrir le fichier ", path)
+                        data = line.split(";")
+                        try:
+                            self.media_orm.insert(
+                                data[0], data[1], data[2])
+                            line = f.readline()
+                        except AttributeError:
+                            print("Impossible d'ouvrir le fichier ", path)
                     line = f.readline()
                     while(line != "" and line != "\n"):
-                            data = line.split(";")
-                            try:
-                                self.occurrence_orm.insert(data[0], data[1], data[2], data[3], data[4])
-                                line = f.readline()
-                            except AttributeError:
-                                print("Impossible d'ouvrir le fichier ", path)            
+                        data = line.split(";")
+                        try:
+                            self.occurrence_orm.insert(
+                                data[0], data[1], data[2], data[3], data[4])
+                            line = f.readline()
+                        except AttributeError:
+                            print("Impossible d'ouvrir le fichier ", path)
 
                     f.close()
             elif i == "14":
@@ -302,7 +309,8 @@ class Main(object):
                     pass
                 else:
                     try:
-                        print(self.performer_orm.getFavouriteTypeOcarina(performerArray[int(performer)-1].id_performer))
+                        print(self.performer_orm.getFavouriteTypeOcarina(
+                            performerArray[int(performer)-1].id_performer))
                     except TypeError:
                         print("Cet interprète n'a jamais joué d'ocarina")
             elif i == "15":
@@ -330,7 +338,8 @@ class Main(object):
                     pass
                 else:
                     try:
-                        print(self.typeOcarina_orm.getMaxPerformer(ocarinaArray[int(ocarina)-1].id_type_ocarina))
+                        print(self.typeOcarina_orm.getMaxPerformer(
+                            ocarinaArray[int(ocarina)-1].id_type_ocarina))
                     except TypeError:
                         print("Aucun interprète n'a joué de cet ocarina")
             elif i == "16":
@@ -359,9 +368,11 @@ class Main(object):
                     pass
                 else:
                     try:
-                        print(self.typeMedia_orm.getFavouriteTypeOcarina(typeMediaArray[int(typeMedia)-1].id_type_media))
+                        print(self.typeMedia_orm.getFavouriteTypeOcarina(
+                            typeMediaArray[int(typeMedia)-1].id_type_media))
                     except TypeError:
-                        print("Ce type de média n'a jamais été joué à l'ocarina")
+                        print(
+                            "Ce type de média n'a jamais été joué à l'ocarina")
             elif i == "17":
                 j = 0
                 try:
@@ -387,9 +398,60 @@ class Main(object):
                     pass
                 else:
                     try:
-                        print(self.typeOcarina_orm.getMaxTypeMedia(typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina))
+                        print(self.typeOcarina_orm.getMaxTypeMedia(
+                            typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina))
                     except TypeError:
                         print("Ce type d'ocarina n'a jamais été joué")
+            elif i == "18":
+                j = 0
+                try:
+                    mediaArray = self.media_orm.findAll()
+                    valid = False
+                    while not valid:
+                        j = 0
+                        for t in mediaArray:
+                            j += 1
+                            print("{} - {}".format(j, t.name))
+                        invite = "Rentrez le média : "
+                        media = (input(invite))
+                        try:
+                            if(int(media) < 1 or int(media) > j):
+                                pass
+                            else:
+                                valid = True
+                        except AttributeError:
+                            pass
+                    typeOcarinaArray = self.typeOcarina_orm.findByMedia(
+                        mediaArray[int(media)-1].id_media)
+                    if(len(typeOcarinaArray) != 0):
+                        valid = False
+                        while not valid:
+                            j = 0
+                            for t in typeOcarinaArray:
+                                j += 1
+                                print("{} - {}".format(j, t.name))
+                            invite = "Rentrez le type d'ocarina : "
+                            typeOcarina = (input(invite))
+                            try:
+                                if(int(typeOcarina) < 1 or int(typeOcarina) > j):
+                                    pass
+                                else:
+                                    valid = True
+                            except AttributeError:
+                                pass
+                    else:
+                        print("Ce média n'a jamais été joué")
+                        pass
+                except KeyboardInterrupt:
+                    pass
+                except EOFError:
+                    pass
+                else:
+                    if(len(typeOcarinaArray) == 0):
+                        pass
+                    else:
+                        print("{:3.2f} %".format(self.media_orm.typeOcarinaProportion(mediaArray[
+                              int(media)-1].id_media, typeOcarinaArray[int(typeOcarina)-1].id_type_ocarina)))
             elif i == "255":
                 self.quitter()
             else:
@@ -397,4 +459,3 @@ class Main(object):
 
 if __name__ == '__main__':
     myMain = Main()
-

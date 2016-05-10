@@ -88,6 +88,14 @@ class TypeOcarinaORM(BaseORM):
                    order_by(desc(func.
                                  count(Media.fk_id_type_media))).first()))
 
+    def findByMedia(self, media):
+        typeOcarina_id_Array = self.session.query(
+            Occurrence.fk_id_type_ocarina).filter(Occurrence.fk_id_media == media).all()
+        typeOcarinaArray = []
+        for i in typeOcarina_id_Array:
+            typeOcarinaArray.append(self.session.query(TypeOcarina).get(i))
+        return typeOcarinaArray
+
 
 class PerformerORM(BaseORM):
 
@@ -209,6 +217,13 @@ class MediaORM(BaseORM):
     def delete(self):
         # TODO
         pass
+
+    def typeOcarinaProportion(self, media, id_ocarina):
+        ocarinaLength = self.session.query(Occurrence.length).\
+            filter(and_(Occurrence.fk_id_media == media,
+                        Occurrence.fk_id_type_ocarina == id_ocarina)).one()[0]
+        totalLength = self.session.query(Media).get(media).length
+        return((ocarinaLength/totalLength)*100)
 
 
 class OccurrenceORM(BaseORM):
