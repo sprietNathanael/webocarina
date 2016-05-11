@@ -168,6 +168,9 @@ class PerformerORM(BaseORM):
             s = s + performer.toCSV() + "\n"
         return s
 
+    def findById(self, id):
+        return self.session.query(Performer).get(id)
+
     def findAll(self):
         return self.session.query(Performer)
 

@@ -26,9 +26,9 @@ ${layout.head("all ocarina view")}
 							<td>${ocarinaInfos[ocarina.id_type_ocarina]["performer"].name}</td>
 							<td>${ocarinaInfos[ocarina.id_type_ocarina]["typeMedia"].name}</td>
 						% else:
-							<td colspan="1"><div class="alert alert-info">
+							<td colspan="2"><div class="alert alert-info">
 								 Cet ocarina n'a jamais été joué
-								</div></td><td></td>
+								</div></td>
 						% endif
 						<td>${ocarinaInfos[ocarina.id_type_ocarina]["avg"]} min</td>
 						<td>${ocarinaInfos[ocarina.id_type_ocarina]["min"]} min</td>

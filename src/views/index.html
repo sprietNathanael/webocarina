@@ -13,7 +13,17 @@ ${layout.head("menu")}
 			% endfor
 			</ul>
 		</div>		
-		<a href="allOcarinas" class="btn btn-info" role="button">Tous les ocarinas</a>
+		<a href="allOcarinas" class="col-lg-1 btn btn-info" role="button">Tous les ocarinas</a>
+
+		<div class="col-lg-2 dropdown" id="selectPerformer">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des artistes<span class="caret"></span></button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			% for i in performerArray:
+				<li><a href="/performer/${i.id_performer}">${i.name}</a></li>
+			% endfor
+			</ul>
+		</div>
+		<a href="allPerformers" class="col-lg-1 btn btn-info" role="button">Tous les artistes</a>
 	</div>
 </body>
 ${layout.footer()}
