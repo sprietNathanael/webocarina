@@ -1,0 +1,45 @@
+<%namespace name="layout" file="layout.html"/>
+${layout.head("all ocarina view")}
+	<div class="container-fluid">
+		
+		<div class="page-header">
+		  <h1>Liste des Ocarinas</h1>
+		</div>
+		<div class="container">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Nom de l'ocarina</th>
+						<th>Artiste</th>
+						<th>Média</th>
+						<th>Durée moyenne</th>
+						<th>Durée minimum</th>
+						<th>Durée maximum</th>
+						<th>Durée totale</th>
+					</tr>
+				</thead>
+				<tbody>
+					% for ocarina in ocarinaArray:
+					<tr>
+						<td>${ocarina.name}</td>
+						% if ocarinaInfos[ocarina.id_type_ocarina]["performer"] != None:
+							<td>${ocarinaInfos[ocarina.id_type_ocarina]["performer"].name}</td>
+							<td>${ocarinaInfos[ocarina.id_type_ocarina]["typeMedia"].name}</td>
+						% else:
+							<td colspan="1"><div class="alert alert-info">
+								 Cet ocarina n'a jamais été joué
+								</div></td><td></td>
+						% endif
+						<td>${ocarinaInfos[ocarina.id_type_ocarina]["avg"]} min</td>
+						<td>${ocarinaInfos[ocarina.id_type_ocarina]["min"]} min</td>
+						<td>${ocarinaInfos[ocarina.id_type_ocarina]["max"]} min</td>
+						<td>${ocarinaInfos[ocarina.id_type_ocarina]["total"]} min</td>
+					</tr>
+					%endfor
+				</tbody>
+			</table>	
+		</div>	
+	</div>
+${layout.footer()}
+${layout.scripts()}
+${layout.endOfPage()}

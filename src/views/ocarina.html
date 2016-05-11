@@ -10,8 +10,11 @@ ${layout.head("ocarina view")}
 				<div class="panel-body">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</div>
-				<table class="table table-hover">
+				<table class="table table-striped table-hover">
 					<tbody>
+						<tr>
+							<td>Nombres de trous</td><td>${ocarina.hole_nb}</td>
+						</tr>
 						% if performer != None:
 						<tr>
 							<td>Interprête ayant le plus joué</td><td>${performer.name}</td>

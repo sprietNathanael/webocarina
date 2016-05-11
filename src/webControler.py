@@ -37,8 +37,27 @@ class WebAppli:
             template = lookup.get_template('ocarina.html')
             return template.render(ocarina=ocarina, performer=performer, typeMedia=typeMedia, avg=avg, min=min, max=max, total=total)
 
+    def allOcarinas(self):
+        typeOcarina_orm = TypeOcarinaORM()
+        ocarinaArray = typeOcarina_orm.findAll()
+        ocarinaInfos = {}
+        for ocarina in ocarinaArray:
+            ocarinaInfos[ocarina.id_type_ocarina] = {};
+            try:
+                ocarinaInfos[ocarina.id_type_ocarina]["performer"] = typeOcarina_orm.getMaxPerformer(ocarina.id_type_ocarina)
+                ocarinaInfos[ocarina.id_type_ocarina]["typeMedia"] = typeOcarina_orm.getMaxTypeMedia(ocarina.id_type_ocarina)
+            except TypeError:
+                ocarinaInfos[ocarina.id_type_ocarina]["performer"] = None
+                ocarinaInfos[ocarina.id_type_ocarina]["typeMedia"] = None
+            ocarinaInfos[ocarina.id_type_ocarina]["avg"] = typeOcarina_orm.getAverageLength(ocarina.id_type_ocarina)
+            ocarinaInfos[ocarina.id_type_ocarina]["min"] = typeOcarina_orm.getMinLength(ocarina.id_type_ocarina)
+            ocarinaInfos[ocarina.id_type_ocarina]["max"] = typeOcarina_orm.getMaxLength(ocarina.id_type_ocarina)
+            ocarinaInfos[ocarina.id_type_ocarina]["total"] = typeOcarina_orm.getTotalLength(ocarina.id_type_ocarina)
+        template = lookup.get_template('allOcarinas.html')
+        return template.render(ocarinaArray=ocarinaArray, ocarinaInfos=ocarinaInfos)
     index.exposed = True
     ocarina.exposed = True
+    allOcarinas.exposed = True
 
 
 class WebServer:
