@@ -7,6 +7,16 @@
 </head>
 <body>
 	<p>${ocarina}</p>
+	% if performer != None:
+		<p>Interprête ayant le plus joué: ${performer.name}</p>
+	% endif
+	% if typeMedia != None:
+		<p>Type de média dans lequel il apparaît le plus: ${typeMedia.name}</p>
+	% endif
+	<p>temps de jeu minimum : ${min} minutes</p>
+	<p>temps de jeu maximum : ${max} minutes</p>
+	<p>temps de jeu total : ${total} minutes</p>
+	<p>temps de jeu moyen : ${avg} minutes</p>
 </body>
 <script src="/static/js/jquery.min.js"></script>
 </html>

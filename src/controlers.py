@@ -75,6 +75,12 @@ class TypeOcarinaORM(BaseORM):
         pass
 
     def getMaxPerformer(self, id):
+        print(self.session.query(Performer).get(
+            self.session.query(Occurrence.fk_id_performer).
+            group_by(Occurrence.fk_id_performer).
+            filter(Occurrence.fk_id_type_ocarina == id).
+            order_by(desc(func.
+                          count(Occurrence.fk_id_performer))).first()))
         return(self.session.query(Performer).get(
             self.session.query(Occurrence.fk_id_performer).
             group_by(Occurrence.fk_id_performer).
