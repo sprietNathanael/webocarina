@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Title</title>
-</head>
-<body>
+<%namespace name="layout" file="layout.html"/>
+${layout.head("menu")}
+	<div class="container-fluid">
+		<div class="page-header">
+		  <h1>Menu Principal</h1>
+		</div>
 
-	<select id="selectOcarina">
-		% for i in typeOcarinaArray:
-			<option value="${i.id_type_ocarina}">${i.name}</option>
-		% endfor
-	</select>
-	<button onclick="searchOcarina()">Search</button>
+		<div class="col-lg-2 dropdown" id="selectOcarina">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des Ocarinas<span class="caret"></span></button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			% for i in typeOcarinaArray:
+				<li><a href="/ocarina/${i.id_type_ocarina}">${i.name}</a></li>
+			% endfor
+			</ul>
+		</div>		
+	</div>
 </body>
-<script src="/static/js/jquery.min.js"></script>
-<script>
-	function searchOcarina () {
-		choice = $("#selectOcarina").val()
-		window.location = "/ocarina/"+choice
-	}
-</script>
-</html>
+${layout.footer()}
+${layout.scripts()}
+${layout.endOfPage()}
