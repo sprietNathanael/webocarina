@@ -8,16 +8,16 @@ Projet personnel de Python - Licence professionnelle CASIR
 
 - [X] Visualisation simple des données sans aucun tri possible
 - [X] Saisie et enregistrement des différentes données
-- [ ] Ajout des tris :
-	- [ ] Quel est le type d'ocarina préféré d'un interprète
-	- [ ] Quel est l'interprète ayant le plus joué d'un type ocarina
-	- [ ] Quel est le type d'ocarina le plus utilisé pour un type de média
-	- [ ] Quel est le type de média le plus utilisé pour un type d'ocarina
-	- [ ] Quelle est la proportion de durée d'un type d'ocarina pour un média
-	- [ ] Quel est la durée moyenne/minimum/maximum de jeu d'un :
-		- [ ] type d'ocarina
-		- [ ] interprète
-		- [ ] type de média
-		- [ ] tout ocarina confondu
+- [X] Ajout des tris :
+	- [X] Quel est le type d'ocarina préféré d'un interprète
+	- [X] Quel est l'interprète ayant le plus joué d'un type ocarina
+	- [X] Quel est le type d'ocarina le plus utilisé pour un type de média
+	- [X] Quel est le type de média le plus utilisé pour un type d'ocarina
+	- [X] Quelle est la proportion de durée d'un type d'ocarina pour un média
+	- [X] Quel est la durée moyenne/minimum/maximum de jeu d'un :
+		- [X] type d'ocarina
+		- [X] interprète
+		- [X] type de média
+		- [X] tout ocarina confondu
 - [ ] Création de l'interface web
 - [ ] Doigté intéractif
