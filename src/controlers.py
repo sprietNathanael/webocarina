@@ -46,6 +46,9 @@ class TypeOcarinaORM(BaseORM):
             s = s + str(typeOcarina) + "\n"
         return s
 
+    def findById(self, id):
+        return self.session.query(TypeOcarina).get(id)
+
     def toCSV(self):
         s = ''
         for typeOcarina in self.session.query(TypeOcarina):
