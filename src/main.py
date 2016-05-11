@@ -21,7 +21,7 @@ class Main(object):
         print("1. Durée moyenne")
         print("2. Durée minimum")
         print("3. Durée maximum")
-        print("3. Durée totale")
+        print("4. Durée totale")
 
     def afficherMenu(self):
         print("1. Bonjour")
@@ -44,6 +44,8 @@ class Main(object):
         print("18. Proportion d'un type d'ocarina dans un média")
         print("19. Informations sur un type d'ocarina")
         print("20. Informations sur un interprète")
+        print("21. Informations sur tous les types d'ocarinas confondus")
+        print("22. Informations sur un type de média")
         print("255. Quitter")
 
     def quitter(self):
@@ -560,8 +562,31 @@ class Main(object):
                     pass
                 except EOFError:
                     pass
-                    
-
+            elif i == "21":
+                j = 0
+                try:
+                    valid = False
+                    while not valid:
+                        self.afficherMenuInfo()
+                        invite = "Faites votre choix : "
+                        valid = False
+                        choice = (input(invite))
+                        valid = True
+                        if(choice == "1"):
+                            print("{:2.0f} min".format(self.typeOcarina_orm.getAverageLength()))
+                        elif(choice == "2"):
+                            print("{:2.0f} min".format(self.typeOcarina_orm.getMinLength()))
+                        elif(choice == "3"):
+                            print("{:2.0f} min".format(self.typeOcarina_orm.getMaxLength()))
+                        elif(choice == "4"):
+                            print("{:2.0f} min".format(self.typeOcarina_orm.getTotalLength()))
+                        else:
+                            valid = False
+                            print("Votre choix est faux !")
+                except KeyboardInterrupt:
+                    pass
+                except EOFError:
+                    pass
             elif i == "255":
                 self.quitter()
             else:

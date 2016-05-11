@@ -96,29 +96,45 @@ class TypeOcarinaORM(BaseORM):
             typeOcarinaArray.append(self.session.query(TypeOcarina).get(i))
         return typeOcarinaArray
 
-    def getAverageLength(self, typeOcarina):
-        average = self.session.query(func.avg(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+    def getAverageLength(self, typeOcarina=-1):
+        if(typeOcarina == -1):
+            average = self.session.query(func.avg(Occurrence.length)).one()[0]
+        else:
+            average = self.session.query(func.avg(Occurrence.length)).filter(
+                Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
         if(type(average) is int or type(average) is float):
             return(average)
         else:
             return(0)
 
-    def getMinLength(self, typeOcarina):
-        minimum = self.session.query(func.min(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+    def getMinLength(self, typeOcarina=-1):
+        if(typeOcarina == -1):
+            minimum = self.session.query(func.min(Occurrence.length)).one()[0]
+        else:
+            minimum = self.session.query(func.min(Occurrence.length)).filter(
+                Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
         if(type(minimum) is int or type(minimum) is float):
             return(minimum)
         else:
             return(0)
 
-    def getMaxLength(self, typeOcarina):
-        maximum = self.session.query(func.max(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+    def getMaxLength(self, typeOcarina=-1):
+        if(typeOcarina == -1):
+            maximum = self.session.query(func.max(Occurrence.length)).one()[0]
+        else:
+            maximum = self.session.query(func.max(Occurrence.length)).filter(
+                Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
         if(type(maximum) is int or type(maximum) is float):
             return(maximum)
         else:
             return(0)
 
-    def getTotalLength(self, typeOcarina):
-        total = self.session.query(func.sum(Occurrence.length)).filter(Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
+    def getTotalLength(self, typeOcarina=-1):
+        if(typeOcarina == -1):
+            total = self.session.query(func.sum(Occurrence.length)).one()[0]
+        else:
+            total = self.session.query(func.sum(Occurrence.length)).filter(
+                Occurrence.fk_id_type_ocarina == typeOcarina).one()[0]
         if(type(total) is int or type(total) is float):
             return(total)
         else:
@@ -168,28 +184,32 @@ class PerformerORM(BaseORM):
                           count(Occurrence.fk_id_type_ocarina))).first()))
 
     def getAverageLength(self, performer):
-        average = self.session.query(func.avg(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        average = self.session.query(func.avg(Occurrence.length)).filter(
+            Occurrence.fk_id_performer == performer).one()[0]
         if(type(average) is int or type(average) is float):
             return(average)
         else:
             return(0)
 
     def getMinLength(self, performer):
-        minimum = self.session.query(func.min(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        minimum = self.session.query(func.min(Occurrence.length)).filter(
+            Occurrence.fk_id_performer == performer).one()[0]
         if(type(minimum) is int or type(minimum) is float):
             return(minimum)
         else:
             return(0)
 
     def getMaxLength(self, performer):
-        maximum = self.session.query(func.max(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        maximum = self.session.query(func.max(Occurrence.length)).filter(
+            Occurrence.fk_id_performer == performer).one()[0]
         if(type(maximum) is int or type(maximum) is float):
             return(maximum)
         else:
             return(0)
 
     def getTotalLength(self, performer):
-        total = self.session.query(func.sum(Occurrence.length)).filter(Occurrence.fk_id_performer == performer).one()[0]
+        total = self.session.query(func.sum(Occurrence.length)).filter(
+            Occurrence.fk_id_performer == performer).one()[0]
         if(type(total) is int or type(total) is float):
             return(total)
         else:
