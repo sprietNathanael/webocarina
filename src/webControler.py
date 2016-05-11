@@ -14,10 +14,12 @@ class WebAppli:
     def index(self):
         typeOcarina_orm = TypeOcarinaORM()
         performer_orm = PerformerORM()
+        media_orm = MediaORM()
         typeOcarinaArray = typeOcarina_orm.findAll()
         performerArray = performer_orm.findAll()
+        mediaArray = media_orm.findAll()
         template = lookup.get_template('index.html')
-        return template.render(typeOcarinaArray=typeOcarinaArray, performerArray=performerArray)
+        return template.render(typeOcarinaArray=typeOcarinaArray, performerArray=performerArray,  mediaArray=mediaArray)
 
     def ocarina(self, choice=None):
         if(choice == None):
@@ -106,11 +108,35 @@ class WebAppli:
         template = lookup.get_template('allPerformers.html')
         return template.render(performerArray=performerArray, performerInfos=performerInfos)
 
+    def media(self, choice=None):
+        if(choice == None):
+            return self.index()
+        else:
+            media_orm = MediaORM()
+            media = media_orm.findById(choice)
+            if(media == None):
+                return self.index()
+            typeMedia = TypeMediaORM().findById(media.fk_id_type_media)
+            template = lookup.get_template('media.html')
+            return template.render(media=media, typeMedia=typeMedia)
+
+    def allMedias(self):
+        media_orm = MediaORM()
+        typeMedia_orm = TypeMediaORM()
+        mediaArray = media_orm.findAll()
+        mediaInfos = {}
+        for media in mediaArray:
+            mediaInfos[media.id_media] = typeMedia_orm.findById(media.fk_id_type_media)
+        template = lookup.get_template('allMedias.html')
+        return template.render(mediaArray=mediaArray, mediaInfos=mediaInfos)
+
     index.exposed = True
     ocarina.exposed = True
     allOcarinas.exposed = True
     performer.exposed = True
     allPerformers.exposed = True
+    media.exposed = True
+    allMedias.exposed = True
 
 
 class WebServer:

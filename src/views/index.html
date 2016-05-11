@@ -24,6 +24,16 @@ ${layout.head("menu")}
 			</ul>
 		</div>
 		<a href="allPerformers" class="col-lg-1 btn btn-info" role="button">Tous les artistes</a>
+		<div class="col-lg-2 dropdown" id="selectMedia">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des medias<span class="caret"></span></button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			% for i in mediaArray:
+				<li><a href="/media/${i.id_media}">${i.name}</a></li>
+			% endfor
+			</ul>
+		</div>
+		<a href="allMedias" class="col-lg-1 btn btn-info" role="button">Tous les médias</a>
+
 	</div>
 </body>
 ${layout.footer()}

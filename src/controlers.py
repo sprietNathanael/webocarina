@@ -262,6 +262,9 @@ class TypeMediaORM(BaseORM):
         # TODO
         pass
 
+    def findById(self, id):
+        return self.session.query(TypeMedia).get(id)
+
     def getFavouriteTypeOcarina(self, id):
         return(self.session.query(TypeOcarina).
                get(self.session.query(Occurrence.fk_id_type_ocarina).
@@ -325,6 +328,9 @@ class MediaORM(BaseORM):
         for media in self.session.query(Media):
             s = s + media.toCSV() + "\n"
         return s
+
+    def findById(self, id):
+        return self.session.query(Media).get(id)
 
     def findAll(self):
         return self.session.query(Media)
