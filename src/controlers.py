@@ -259,6 +259,42 @@ class TypeMediaORM(BaseORM):
                    order_by(desc(func.
                                  count(Occurrence.fk_id_type_ocarina))).first()))
 
+    def getAverageLength(self, typeMedia):
+        average = self.session.query(func.avg(Occurrence.length)).\
+            join(Media).\
+            filter(Media.fk_id_type_media == typeMedia).one()[0]
+        if(type(average) is int or type(average) is float):
+            return(average)
+        else:
+            return(0)
+
+    def getMinLength(self, typeMedia):
+        minimum = self.session.query(func.min(Occurrence.length)).\
+            join(Media).\
+            filter(Media.fk_id_type_media == typeMedia).one()[0]
+        if(type(minimum) is int or type(minimum) is float):
+            return(minimum)
+        else:
+            return(0)
+
+    def getMaxLength(self, typeMedia):
+        maximum = self.session.query(func.max(Occurrence.length)).\
+            join(Media).\
+            filter(Media.fk_id_type_media == typeMedia).one()[0]
+        if(type(maximum) is int or type(maximum) is float):
+            return(maximum)
+        else:
+            return(0)
+
+    def getTotalLength(self, typeMedia):
+        total = self.session.query(func.sum(Occurrence.length)).\
+            join(Media).\
+            filter(Media.fk_id_type_media == typeMedia).one()[0]
+        if(type(total) is int or type(total) is float):
+            return(total)
+        else:
+            return(0)
+
 
 class MediaORM(BaseORM):
 

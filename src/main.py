@@ -587,6 +587,56 @@ class Main(object):
                     pass
                 except EOFError:
                     pass
+            elif i == "22":
+                j = 0
+                try:
+                    typeMediaArray = self.typeMedia_orm.findAll()
+                    valid = False
+                    while not valid:
+                        j = 0
+                        for t in typeMediaArray:
+                            j += 1
+                            print("{} - {}".format(j, t.name))
+                        invite = "Rentrez le type de Média : "
+                        typeMedia = (input(invite))
+                        try:
+                            if(int(typeMedia) < 1 or int(typeMedia) > j):
+                                pass
+                            else:
+                                valid = True
+                        except AttributeError:
+                            pass
+                    valid = False
+                    try:
+                        while not valid:
+                            self.afficherMenuInfo()
+                            invite = "Faites votre choix : "
+                            valid = False
+                            choice = (input(invite))
+                            valid = True
+                            if(choice == "1"):
+                                print("{:2.0f} min".format(self.typeMedia_orm.getAverageLength(
+                                    typeMediaArray[int(typeMedia)-1].id_type_media)))
+                            elif(choice == "2"):
+                                print("{:2.0f} min".format(self.typeMedia_orm.getMinLength(
+                                    typeMediaArray[int(typeMedia)-1].id_type_media)))
+                            elif(choice == "3"):
+                                print("{:2.0f} min".format(self.typeMedia_orm.getMaxLength(
+                                    typeMediaArray[int(typeMedia)-1].id_type_media)))
+                            elif(choice == "4"):
+                                print("{:2.0f} min".format(self.typeMedia_orm.getTotalLength(
+                                    typeMediaArray[int(typeMedia)-1].id_type_media)))
+                            else:
+                                valid = False
+                                print("Votre choix est faux !")
+                    except KeyboardInterrupt:
+                        pass
+                    except EOFError:
+                        pass
+                except KeyboardInterrupt:
+                    pass
+                except EOFError:
+                    pass
             elif i == "255":
                 self.quitter()
             else:
