@@ -12,16 +12,16 @@ ${layout.head("occurrence view")}
 				</div>
 				<table class="table table-striped table-hover">
 					<tbody>
-						<tr>
+						<tr onclick="window.location = '/media/${media.id_media}'">
 							<td>Média</td><td>${media.name}</td>
 						</tr>
-						<tr>
+						<tr onclick="window.location = '/ocarina/${typeOcarina.id_type_ocarina}'">
 							<td>Type d'ocarina</td><td>${typeOcarina.name}</td>
 						</tr>
 						<tr>
 							<td>Durée</td><td>${occurrence.length}</td>
 						</tr>
-						<tr>
+						<tr onclick="window.location = '/performer/${performer.id_performer}'">
 							<td>Artiste</td><td>${performer.name}</td>
 						</tr>
 						

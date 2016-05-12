@@ -16,7 +16,7 @@ ${layout.head("ocarina view")}
 							<td>Nombres de trous</td><td>${ocarina.hole_nb}</td>
 						</tr>
 						% if performer != None:
-						<tr>
+						<tr onclick="window.location = '/performer/${performer.id_performer}'">
 							<td>Interprête ayant le plus joué</td><td>${performer.name}</td>
 						</tr>
 						% else:
@@ -27,7 +27,7 @@ ${layout.head("ocarina view")}
 						</tr>
 						% endif
 						% if typeMedia != None:
-						<tr>
+						<tr onclick="window.location = '/typeMedia/${typeMedia.id_type_media}'">
 							<td>Type de média dans lequel il apparaît le plus</td><td>${typeMedia.name}</td>
 						</tr>
 						% endif

@@ -13,7 +13,7 @@ ${layout.head("interprête view")}
 				<table class="table table-striped table-hover">
 					<tbody>
 						% if ocarina != None:
-						<tr>
+						<tr onclick="window.location = '/ocarina/${ocarina.id_type_ocarina}'">
 							<td>Ocarina Préféré</td><td>${ocarina.name}</td>
 						</tr>
 						% else:
