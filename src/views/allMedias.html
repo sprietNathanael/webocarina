@@ -11,7 +11,7 @@ ${layout.head("all media view")}
 					<tr>
 						<th>Nom du média</th>
 						<th>Type de média</th>
-						<th>Longueur</th>
+						<th>Durée</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -24,6 +24,7 @@ ${layout.head("all media view")}
 						<td><a href="media/${media.id_media}" class="btn btn-info" role="button"><i class="fa fa-eye"></i></a></td>
 					</tr>
 					%endfor
+					<a href="addMedia" class="btn btn-success" role="button"><i class="fa fa-plus"></i>  Ajouter un média</a>
 				</tbody>
 			</table>	
 		</div>	
