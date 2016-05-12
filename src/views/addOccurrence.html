@@ -1,0 +1,54 @@
+<%namespace name="layout" file="layout.html"/>
+${layout.head("occurrence add")}
+	<div class="container-fluid">
+		
+		<div class="page-header">
+		  <h1>Nouvelle Occurrence</h1>
+		</div>
+		<div class="container">		
+		<form action="addOccurrenceSend" method="GET" role="form">
+		
+			<div class="form-group">
+				<label for="inputOcarina">Type de média</label>
+				<select name="ocarina" class="form-control">
+				% for i in typeOcarinaArray:
+					<option value="${i.id_type_ocarina}">${i.name}</option>
+				% endfor
+				</select>
+			</div>	
+
+			<div class="form-group">
+				<label for="inputMedia">Média</label>
+				<select name="media" class="form-control">
+				% for i in mediaArray:
+					<option value="${i.id_media}">${i.name}</option>
+				% endfor
+				</select>
+			</div>	
+
+			<div class="form-group">
+				<label for="inputLength">Durée</label>
+				<input type="number" name="length" class="form-control" id="inputHoles" min="1" step="1">
+			</div>
+
+			<div class="form-group">
+				<label for="inputComment">Commentaire</label>
+				<textarea name="comment" class="form-control" row="3"></textarea>
+			</div>
+
+			<div class="form-group">
+				<label for="inputPerformer">Artiste</label>
+				<select name="performer" class="form-control">
+				% for i in performerArray:
+					<option value="${i.id_performer}">${i.name}</option>
+				% endfor
+				</select>
+			</div>	
+
+			<button type="submit" class="btn btn-primary">Ajouter</button>
+		</form>
+		</div>
+	</div>
+${layout.footer()}
+${layout.scripts()}
+${layout.endOfPage()}

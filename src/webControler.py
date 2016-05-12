@@ -226,10 +226,10 @@ class WebAppli:
         template = lookup.get_template('addMedia.html')
         return template.render(typeMediaArray=typeMediaArray)
 
-    def addMediaSend(self, name, length, ocarina):
+    def addMediaSend(self, name, length, typeMedia):
         media_orm = MediaORM()
         try:
-            media_orm.insert(name, length, ocarina)
+            media_orm.insert(name, length, typeMedia)
         except AttributeError:
             return(self.addMedia())
         else:
@@ -261,6 +261,28 @@ class WebAppli:
         else:
             return(self.index())
 
+    def addOccurrence(self):
+        media_orm = MediaORM()
+        performer_orm = PerformerORM()
+        typeOcarina_orm = TypeOcarinaORM()
+        mediaArray = media_orm.findAll()
+        performerArray = performer_orm.findAll()
+        typeOcarinaArray = typeOcarina_orm.findAll()
+        template = lookup.get_template('addOccurrence.html')
+        return template.render(mediaArray=mediaArray, performerArray=performerArray, typeOcarinaArray=typeOcarinaArray)
+
+    def addOccurrenceSend(self, media, ocarina, length, comment, performer):
+        occurrence_orm = OccurrenceORM()
+        try:
+            occurrence_orm.insert(media, ocarina, length, comment, performer)
+        except AttributeError:
+            return(self.addOccurrence())
+        except:
+            return(self.addOccurrence())
+
+        else:
+            return(self.index())
+
     index.exposed = True
     ocarina.exposed = True
     allOcarinas.exposed = True
@@ -280,6 +302,8 @@ class WebAppli:
     addTypeMediaSend.exposed = True
     addPerformer.exposed = True
     addPerformerSend.exposed = True
+    addOccurrence.exposed = True
+    addOccurrenceSend.exposed = True
 
 
 class WebServer:
