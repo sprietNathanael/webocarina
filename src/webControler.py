@@ -248,6 +248,19 @@ class WebAppli:
         else:
             return(self.index())
 
+    def addPerformer(self):
+        template = lookup.get_template('addPerformer.html')
+        return template.render()
+
+    def addPerformerSend(self, name):
+        performer_orm = PerformerORM()
+        try:
+            performer_orm.insert(name)
+        except AttributeError:
+            return(self.addPerformer())
+        else:
+            return(self.index())
+
     index.exposed = True
     ocarina.exposed = True
     allOcarinas.exposed = True
@@ -265,6 +278,8 @@ class WebAppli:
     addMediaSend.exposed = True
     addTypeMedia.exposed = True
     addTypeMediaSend.exposed = True
+    addPerformer.exposed = True
+    addPerformerSend.exposed = True
 
 
 class WebServer:

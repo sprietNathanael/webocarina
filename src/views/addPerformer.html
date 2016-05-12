@@ -1,0 +1,22 @@
+<%namespace name="layout" file="layout.html"/>
+${layout.head("performer add")}
+	<div class="container-fluid">
+		
+		<div class="page-header">
+		  <h1>Nouvel artiste</h1>
+		</div>
+		<div class="container">		
+		<form action="addPerformerSend" method="GET" role="form">
+		
+			<div class="form-group">
+				<label for="inputName">Nom</label>
+				<input type="text" name="name" class="form-control" id="inputName" placeholder="Nom">
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Ajouter</button>
+		</form>
+		</div>
+	</div>
+${layout.footer()}
+${layout.scripts()}
+${layout.endOfPage()}
