@@ -3,17 +3,28 @@ ${layout.head("performer add")}
 	<div class="container-fluid">
 		
 		<div class="page-header">
-		  <h1>Nouvel artiste</h1>
+		%if performer != None:		
+			<h1>Modifier ${performer.name}</h1>
+			<% performerName = performer.name%>
+			<% performerId = performer.id_performer%>
+			<% messageSend = "Modifier"%>
+		%else:
+			<h1>Nouvel artiste</h1>
+			<% performerName = "Nom"%>
+			<% performerId= None%>
+			<% messageSend = "Ajouter"%>
+		%endif
 		</div>
 		<div class="container">		
-		<form action="addPerformerSend" method="GET" role="form">
+		<form action="/addPerformerSend" method="GET" role="form">
 		
 			<div class="form-group">
 				<label for="inputName">Nom</label>
-				<input type="text" name="name" class="form-control" id="inputName" placeholder="Nom">
+				<input type="text" name="name" class="form-control" id="inputName" placeholder="${performerName}">
+				<input type="hidden" name="performer_id" value="${performerId}">
 			</div>
 			
-			<button type="submit" class="btn btn-primary">Ajouter</button>
+			<button type="submit" class="btn btn-primary">${messageSend}</button>
 		</form>
 		</div>
 	</div>

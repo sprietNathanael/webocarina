@@ -250,18 +250,25 @@ class WebAppli:
         else:
             return(self.index())
 
-    def addPerformer(self):
+    def addPerformer(self, performer_id=None):
         template = lookup.get_template('addPerformer.html')
-        return template.render()
+        if(performer_id != None):
+            performer = PerformerORM().findById(performer_id)
+        else:
+            performer = None
+        return template.render(performer=performer)
 
-    def addPerformerSend(self, name):
+    def addPerformerSend(self, performer_id, name):
         performer_orm = PerformerORM()
         try:
-            performer_orm.insert(name)
+            if(performer_id == "None"):
+                performer_orm.insert(name)
+            else:
+                performer_orm.maj(performer_id, name)
         except AttributeError:
-            return(self.addPerformer())
+            return(self.addPerformer(performer_id))
         else:
-            return(self.index())
+            return(self.allPerformers())
 
     def addOccurrence(self):
         media_orm = MediaORM()

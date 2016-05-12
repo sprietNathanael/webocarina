@@ -16,6 +16,7 @@ ${layout.head("all performer view")}
 						<th>Durée maximum</th>
 						<th>Durée totale</th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,6 +35,7 @@ ${layout.head("all performer view")}
 						<td>${performerInfos[performer.id_performer]["max"]} min</td>
 						<td>${performerInfos[performer.id_performer]["total"]} min</td>
 						<td><a href="performer/${performer.id_performer}" class="btn btn-info" role="button"><i class="fa fa-eye"></i></a></td>
+						<td><a href="addPerformer/${performer.id_performer}" class="btn btn-warning" role="button"><i class="fa fa-pencil-square-o"></i></a></td>
 
 					</tr>
 					%endfor

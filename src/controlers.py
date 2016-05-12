@@ -58,9 +58,11 @@ class TypeOcarinaORM(BaseORM):
     def findAll(self):
         return self.session.query(TypeOcarina)
 
-    def maj(self):
-        # TODO
-        pass
+    def maj(self, id, name, hole_nb):
+        typeOcarina = self.findById(id)
+        typeOcarina.name = name
+        typeOcarina.hole_nb = hole_nb
+        self.session.commit()
 
     def insert(self, name, hole_nb):
         try:
@@ -174,9 +176,10 @@ class PerformerORM(BaseORM):
     def findAll(self):
         return self.session.query(Performer)
 
-    def maj(self):
-        # TODO
-        pass
+    def maj(self, id_performer, name):
+        performer = self.findById(id_performer)
+        performer.name = name
+        self.session.commit()
 
     def insert(self, name):
         performer = Performer(name)
@@ -364,7 +367,6 @@ class MediaORM(BaseORM):
         return mediaArray
 
 
-
 class OccurrenceORM(BaseORM):
 
     def reset(self):
@@ -391,7 +393,7 @@ class OccurrenceORM(BaseORM):
         pass
 
     def findByMediaOcarina(self, media, ocarina):
-        return(self.session.query(Occurrence).get((media,ocarina)))
+        return(self.session.query(Occurrence).get((media, ocarina)))
 
     def insert(self, fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer):
         occurrence = Occurrence(
