@@ -201,10 +201,24 @@ class WebAppli:
             if(occurrence == None):
                 return self.index()
             media = media_orm.findById(occurrence.fk_id_media)
-            typeOcarina = typeOcarina_orm.findById(occurrence.fk_id_type_ocarina)
+            typeOcarina = typeOcarina_orm.findById(
+                occurrence.fk_id_type_ocarina)
             performer = performer_orm.findById(occurrence.fk_id_performer)
             template = lookup.get_template('occurrence.html')
             return template.render(occurrence=occurrence, performer=performer, typeOcarina=typeOcarina, media=media)
+
+    def addOcarina(self):
+        template = lookup.get_template('addOcarina.html')
+        return template.render()
+
+    def addOcarinaSend(self, name, holes):
+        typeOcarina_orm = TypeOcarinaORM()
+        try:
+            typeOcarina_orm.insert(name, holes)
+        except AttributeError:
+            self.addOcarina()
+        else:
+            self.index()
 
     index.exposed = True
     ocarina.exposed = True
@@ -217,6 +231,8 @@ class WebAppli:
     allTypeMedias.exposed = True
     allOccurrences.exposed = True
     occurrence.exposed = True
+    addOcarina.exposed = True
+    addOcarinaSend.exposed = True
 
 
 class WebServer:
