@@ -26,8 +26,10 @@ ${layout.head("all type media view")}
 						<td>${typeMediaInfos[typeMedia.id_type_media]["max"]} min</td>
 						<td>${typeMediaInfos[typeMedia.id_type_media]["total"]} min</td>
 						<td><a href="typeMedia/${typeMedia.id_type_media}" class="btn btn-info" role="button"><i class="fa fa-eye"></i></a></td>
+
 					</tr>
 					%endfor
+					<a href="addTypeMedia" class="btn btn-success" role="button"><i class="fa fa-plus"></i>  Ajouter un type de média</a>
 				</tbody>
 			</table>	
 		</div>	

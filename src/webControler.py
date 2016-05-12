@@ -216,9 +216,9 @@ class WebAppli:
         try:
             typeOcarina_orm.insert(name, holes)
         except AttributeError:
-            self.addOcarina()
+            return(self.addOcarina())
         else:
-            self.index()
+            return(self.index())
 
     def addMedia(self):
         typeMedia_orm = TypeMediaORM()
@@ -231,9 +231,22 @@ class WebAppli:
         try:
             media_orm.insert(name, length, ocarina)
         except AttributeError:
-            self.addMedia()
+            return(self.addMedia())
         else:
-            self.index()
+            return(self.index())
+
+    def addTypeMedia(self):
+        template = lookup.get_template('addTypeMedia.html')
+        return template.render()
+
+    def addTypeMediaSend(self, name):
+        typeMedia_orm = TypeMediaORM()
+        try:
+            typeMedia_orm.insert(name)
+        except AttributeError:
+            return(self.addTypeMedia())
+        else:
+            return(self.index())
 
     index.exposed = True
     ocarina.exposed = True
@@ -250,6 +263,8 @@ class WebAppli:
     addOcarinaSend.exposed = True
     addMedia.exposed = True
     addMediaSend.exposed = True
+    addTypeMedia.exposed = True
+    addTypeMediaSend.exposed = True
 
 
 class WebServer:
