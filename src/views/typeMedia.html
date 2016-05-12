@@ -27,6 +27,18 @@ ${layout.head("type media view")}
 					</tbody>
 				</table>	
 			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+				 Liste des ${typeMedia.name}
+				</div>
+				<div class="panel-body">
+					<div class="list-group">
+						%for media in mediaArray:
+							<a href="/media/${media.id_media}" class="list-group-item">${media.name}</a>
+						%endfor
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 ${layout.footer()}

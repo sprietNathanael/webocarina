@@ -143,12 +143,14 @@ class WebAppli:
             typeMedia = typeMedia_orm.findById(choice)
             if(typeMedia == None):
                 return self.index()
+            media_orm = MediaORM()
+            mediaArray = media_orm.findByTypeMedia(choice)
             avg = typeMedia_orm.getAverageLength(choice)
             min = typeMedia_orm.getMinLength(choice)
             max = typeMedia_orm.getMaxLength(choice)
             total = typeMedia_orm.getTotalLength(choice)
             template = lookup.get_template('typeMedia.html')
-            return template.render(typeMedia=typeMedia, avg=avg, min=min, max=max, total=total)
+            return template.render(typeMedia=typeMedia, avg=avg, min=min, max=max, total=total, mediaArray=mediaArray)
 
     def allTypeMedias(self):
         typeMedia_orm = TypeMediaORM()

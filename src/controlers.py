@@ -355,6 +355,15 @@ class MediaORM(BaseORM):
         totalLength = self.session.query(Media).get(media).length
         return((ocarinaLength/totalLength)*100)
 
+    def findByTypeMedia(self, typeMedia):
+        media_id_Array = self.session.query(
+            Media.id_media).filter(Media.fk_id_type_media == typeMedia).all()
+        mediaArray = []
+        for i in media_id_Array:
+            mediaArray.append(self.session.query(Media).get(i))
+        return mediaArray
+
+
 
 class OccurrenceORM(BaseORM):
 
