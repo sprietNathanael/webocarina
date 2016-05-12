@@ -4,45 +4,68 @@ ${layout.head("menu")}
 		<div class="page-header">
 		  <h1>Menu Principal</h1>
 		</div>
+		<td><a href="allOccurrences" class="btn btn-info" role="button">Toutes les occurrences</a></td>
+		<table class="table table-hover">
+			<tbody>
+				<tr>
+					<td><a href="allMedias" class="btn btn-info" role="button">Tous les médias</a></td>
+					<td><a href="allOcarinas" class="btn btn-info" role="button">Tous les ocarinas</a></td>
 
-		<div class="col-lg-2 dropdown" id="selectOcarina">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des Ocarinas<span class="caret"></span></button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			% for i in typeOcarinaArray:
-				<li><a href="/ocarina/${i.id_type_ocarina}">${i.name}</a></li>
-			% endfor
-			</ul>
-		</div>		
-		<a href="allOcarinas" class="col-lg-1 btn btn-info" role="button">Tous les ocarinas</a>
+		
+					<td><a href="allPerformers" class="btn btn-info" role="button">Tous les artistes</a></td>
+				
+		
+					<td><a href="allTypeMedias" class="btn btn-info" role="button">Tous les types de médias</a></td>
+					
+				</tr>
+				<tr>
+					<td>
+						<div class="col-lg-2 dropdown" id="selectOcarina">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des Ocarinas<span class="caret"></span></button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							% for i in typeOcarinaArray:
+								<li><a href="/ocarina/${i.id_type_ocarina}">${i.name}</a></li>
+							% endfor
+							</ul>
+						</div>
+					</td>
+					<td>
+						<div class="col-lg-2 dropdown" id="selectPerformer">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des artistes<span class="caret"></span></button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							% for i in performerArray:
+								<li><a href="/performer/${i.id_performer}">${i.name}</a></li>
+							% endfor
+							</ul>
+						</div>
+					</td>
+					<td>
+						<div class="col-lg-2 dropdown" id="selectMedia">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des medias<span class="caret"></span></button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							% for i in mediaArray:
+								<li><a href="/media/${i.id_media}">${i.name}</a></li>
+							% endfor
+							</ul>
+						</div>
+					</td>
+					<td>
+						<div class="col-lg-2 dropdown" id="selectTypeMedia">
+							<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des types de medias<span class="caret"></span></button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							% for i in typeMediaArray:
+								<li><a href="/typeMedia/${i.id_type_media}">${i.name}</a></li>
+							% endfor
+							</ul>
+						</div>
+					</td>
+				</tr>
 
-		<div class="col-lg-2 dropdown" id="selectPerformer">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des artistes<span class="caret"></span></button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			% for i in performerArray:
-				<li><a href="/performer/${i.id_performer}">${i.name}</a></li>
-			% endfor
-			</ul>
-		</div>
-		<a href="allPerformers" class="col-lg-1 btn btn-info" role="button">Tous les artistes</a>
-		<div class="col-lg-2 dropdown" id="selectMedia">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des medias<span class="caret"></span></button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			% for i in mediaArray:
-				<li><a href="/media/${i.id_media}">${i.name}</a></li>
-			% endfor
-			</ul>
-		</div>
-		<a href="allMedias" class="col-lg-1 btn btn-info" role="button">Tous les médias</a>
-		<div class="col-lg-2 dropdown" id="selectTypeMedia">
-			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des types de medias<span class="caret"></span></button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			% for i in typeMediaArray:
-				<li><a href="/typeMedia/${i.id_type_media}">${i.name}</a></li>
-			% endfor
-			</ul>
-		</div>
-		<a href="allTypeMedias" class="col-lg-1 btn btn-info" role="button">Tous les types de médias</a>
-		<a href="allOccurrences" class="col-lg-1 btn btn-info" role="button">Toutes les occurrences</a>
+			</tbody>
+		</table>
+
+				
+		
 	</div>
 </body>
 ${layout.footer()}
