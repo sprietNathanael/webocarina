@@ -1,0 +1,37 @@
+<%namespace name="layout" file="layout.html"/>
+${layout.head("all occurrences view")}
+	<div class="container-fluid">
+		
+		<div class="page-header">
+		  <h1>Liste des Occurrences</h1>
+		</div>
+		<div class="container">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Média</th>
+						<th>Type d'ocarina</th>
+						<th>Longueur</th>
+						<th>Artiste</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<%i =  0 %>
+					% for occurrence in occurrenceArray:
+					<tr>
+						<td>${occurrenceInfos[i]["media"].name}</td>
+						<td>${occurrenceInfos[i]["typeOcarina"].name}</td>
+						<td>${occurrence.length} min</td>
+						<td>${occurrenceInfos[i]["performer"].name}</td>
+						<td><a href="occurrence/${occurrence.fk_id_media}/${occurrence.fk_id_type_ocarina}" class="btn btn-info" role="button"><i class="fa fa-eye"></i></a></td>
+					</tr>
+					<%i+=1%>
+					%endfor
+				</tbody>
+			</table>	
+		</div>	
+	</div>
+${layout.footer()}
+${layout.scripts()}
+${layout.endOfPage()}

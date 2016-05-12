@@ -381,6 +381,9 @@ class OccurrenceORM(BaseORM):
         # TODO
         pass
 
+    def findByMediaOcarina(self, media, ocarina):
+        return(self.session.query(Occurrence).get((media,ocarina)))
+
     def insert(self, fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer):
         occurrence = Occurrence(
             fk_id_media, fk_id_type_ocarina, length, comment, fk_id_performer)

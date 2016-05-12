@@ -16,12 +16,14 @@ class WebAppli:
         performer_orm = PerformerORM()
         media_orm = MediaORM()
         typeMedia_orm = TypeMediaORM()
+        occurrence_orm = OccurrenceORM()
         typeOcarinaArray = typeOcarina_orm.findAll()
         performerArray = performer_orm.findAll()
         mediaArray = media_orm.findAll()
         typeMediaArray = typeMedia_orm.findAll()
+        occurrenceArray = occurrence_orm.findAll()
         template = lookup.get_template('index.html')
-        return template.render(typeOcarinaArray=typeOcarinaArray, performerArray=performerArray,  mediaArray=mediaArray, typeMediaArray=typeMediaArray)
+        return template.render(typeOcarinaArray=typeOcarinaArray, performerArray=performerArray,  mediaArray=mediaArray, typeMediaArray=typeMediaArray, occurrenceArray=occurrenceArray)
 
     def ocarina(self, choice=None):
         if(choice == None):
@@ -165,6 +167,45 @@ class WebAppli:
         template = lookup.get_template('allTypeMedias.html')
         return template.render(typeMediaArray=typeMediaArray, typeMediaInfos=typeMediaInfos)
 
+    def allOccurrences(self):
+        occurrence_orm = OccurrenceORM()
+        media_orm = MediaORM()
+        typeOcarina_orm = TypeOcarinaORM()
+        performer_orm = PerformerORM()
+        occurrenceArray = occurrence_orm.findAll()
+        occurrenceInfos = {}
+        i = 0
+        for occurrence in occurrenceArray:
+            occurrenceInfos[i] = {}
+
+            occurrenceInfos[i][
+                "media"] = media_orm.findById(occurrence.fk_id_media)
+            occurrenceInfos[i][
+                "typeOcarina"] = typeOcarina_orm.findById(occurrence.fk_id_type_ocarina)
+            occurrenceInfos[i][
+                "performer"] = performer_orm.findById(occurrence.fk_id_performer)
+            i += 1
+        template = lookup.get_template('allOccurrences.html')
+        return template.render(occurrenceArray=occurrenceArray, occurrenceInfos=occurrenceInfos)
+
+    def occurrence(self, mediaChoice=None, ocarinaChoice=None):
+        if(mediaChoice == None or ocarinaChoice == None):
+            return self.index()
+        else:
+            occurrence_orm = OccurrenceORM()
+            media_orm = MediaORM()
+            performer_orm = PerformerORM()
+            typeOcarina_orm = TypeOcarinaORM()
+            occurrence = occurrence_orm.findByMediaOcarina(
+                mediaChoice, ocarinaChoice)
+            if(occurrence == None):
+                return self.index()
+            media = media_orm.findById(occurrence.fk_id_media)
+            typeOcarina = typeOcarina_orm.findById(occurrence.fk_id_type_ocarina)
+            performer = performer_orm.findById(occurrence.fk_id_performer)
+            template = lookup.get_template('occurrence.html')
+            return template.render(occurrence=occurrence, performer=performer, typeOcarina=typeOcarina, media=media)
+
     index.exposed = True
     ocarina.exposed = True
     allOcarinas.exposed = True
@@ -174,6 +215,8 @@ class WebAppli:
     allMedias.exposed = True
     typeMedia.exposed = True
     allTypeMedias.exposed = True
+    allOccurrences.exposed = True
+    occurrence.exposed = True
 
 
 class WebServer:
