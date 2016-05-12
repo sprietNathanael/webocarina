@@ -15,11 +15,13 @@ class WebAppli:
         typeOcarina_orm = TypeOcarinaORM()
         performer_orm = PerformerORM()
         media_orm = MediaORM()
+        typeMedia_orm = TypeMediaORM()
         typeOcarinaArray = typeOcarina_orm.findAll()
         performerArray = performer_orm.findAll()
         mediaArray = media_orm.findAll()
+        typeMediaArray = typeMedia_orm.findAll()
         template = lookup.get_template('index.html')
-        return template.render(typeOcarinaArray=typeOcarinaArray, performerArray=performerArray,  mediaArray=mediaArray)
+        return template.render(typeOcarinaArray=typeOcarinaArray, performerArray=performerArray,  mediaArray=mediaArray, typeMediaArray=typeMediaArray)
 
     def ocarina(self, choice=None):
         if(choice == None):
@@ -126,9 +128,42 @@ class WebAppli:
         mediaArray = media_orm.findAll()
         mediaInfos = {}
         for media in mediaArray:
-            mediaInfos[media.id_media] = typeMedia_orm.findById(media.fk_id_type_media)
+            mediaInfos[media.id_media] = typeMedia_orm.findById(
+                media.fk_id_type_media)
         template = lookup.get_template('allMedias.html')
         return template.render(mediaArray=mediaArray, mediaInfos=mediaInfos)
+
+    def typeMedia(self, choice=None):
+        if(choice == None):
+            return self.index()
+        else:
+            typeMedia_orm = TypeMediaORM()
+            typeMedia = typeMedia_orm.findById(choice)
+            if(typeMedia == None):
+                return self.index()
+            avg = typeMedia_orm.getAverageLength(choice)
+            min = typeMedia_orm.getMinLength(choice)
+            max = typeMedia_orm.getMaxLength(choice)
+            total = typeMedia_orm.getTotalLength(choice)
+            template = lookup.get_template('typeMedia.html')
+            return template.render(typeMedia=typeMedia, avg=avg, min=min, max=max, total=total)
+
+    def allTypeMedias(self):
+        typeMedia_orm = TypeMediaORM()
+        typeMediaArray = typeMedia_orm.findAll()
+        typeMediaInfos = {}
+        for typeMedia in typeMediaArray:
+            typeMediaInfos[typeMedia.id_type_media] = {}
+            typeMediaInfos[typeMedia.id_type_media][
+                "avg"] = typeMedia_orm.getAverageLength(typeMedia.id_type_media)
+            typeMediaInfos[typeMedia.id_type_media][
+                "min"] = typeMedia_orm.getMinLength(typeMedia.id_type_media)
+            typeMediaInfos[typeMedia.id_type_media][
+                "max"] = typeMedia_orm.getMaxLength(typeMedia.id_type_media)
+            typeMediaInfos[typeMedia.id_type_media][
+                "total"] = typeMedia_orm.getTotalLength(typeMedia.id_type_media)
+        template = lookup.get_template('allTypeMedias.html')
+        return template.render(typeMediaArray=typeMediaArray, typeMediaInfos=typeMediaInfos)
 
     index.exposed = True
     ocarina.exposed = True
@@ -137,6 +172,8 @@ class WebAppli:
     allPerformers.exposed = True
     media.exposed = True
     allMedias.exposed = True
+    typeMedia.exposed = True
+    allTypeMedias.exposed = True
 
 
 class WebServer:

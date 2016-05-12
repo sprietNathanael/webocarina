@@ -33,7 +33,15 @@ ${layout.head("menu")}
 			</ul>
 		</div>
 		<a href="allMedias" class="col-lg-1 btn btn-info" role="button">Tous les médias</a>
-
+		<div class="col-lg-2 dropdown" id="selectTypeMedia">
+			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Liste des types de medias<span class="caret"></span></button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			% for i in typeMediaArray:
+				<li><a href="/typeMedia/${i.id_type_media}">${i.name}</a></li>
+			% endfor
+			</ul>
+		</div>
+		<a href="allTypeMedias" class="col-lg-1 btn btn-info" role="button">Tous les types de médias</a>
 	</div>
 </body>
 ${layout.footer()}
