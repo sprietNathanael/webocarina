@@ -10,7 +10,7 @@ ${layout.head("performer add")}
 			<% messageSend = "Modifier"%>
 		%else:
 			<h1>Nouvel artiste</h1>
-			<% performerName = "Nom"%>
+			<% performerName = ""%>
 			<% performerId= None%>
 			<% messageSend = "Ajouter"%>
 		%endif
@@ -20,7 +20,7 @@ ${layout.head("performer add")}
 		
 			<div class="form-group">
 				<label for="inputName">Nom</label>
-				<input type="text" name="name" class="form-control" id="inputName" placeholder="${performerName}">
+				<input type="text" name="name" class="form-control" id="inputName" value="${performerName}" placeholder="nom">
 				<input type="hidden" name="performer_id" value="${performerId}">
 			</div>
 			

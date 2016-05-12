@@ -209,18 +209,25 @@ class WebAppli:
             template = lookup.get_template('occurrence.html')
             return template.render(occurrence=occurrence, performer=performer, typeOcarina=typeOcarina, media=media)
 
-    def addOcarina(self):
+    def addOcarina(self, ocarina_id=None):
         template = lookup.get_template('addOcarina.html')
-        return template.render()
+        if(ocarina_id != None):
+            ocarina = TypeOcarinaORM().findById(ocarina_id)
+        else:
+            ocarina = None
+        return template.render(ocarina=ocarina)
 
-    def addOcarinaSend(self, name, holes):
+    def addOcarinaSend(self, ocarina_id, name, holes):
         typeOcarina_orm = TypeOcarinaORM()
         try:
-            typeOcarina_orm.insert(name, holes)
+            if(ocarina_id == "None"):
+                typeOcarina_orm.insert(name, holes)
+            else:
+                typeOcarina_orm.maj(ocarina_id, name, holes)
         except AttributeError:
             return(self.addOcarina())
         else:
-            return(self.index())
+            return(self.allOcarinas())
 
     def addMedia(self):
         typeMedia_orm = TypeMediaORM()

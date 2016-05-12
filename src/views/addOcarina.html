@@ -3,21 +3,34 @@ ${layout.head("ocarina add")}
 	<div class="container-fluid">
 		
 		<div class="page-header">
-		  <h1>Nouveau type d'ocarina</h1>
+		%if ocarina != None:		
+			<h1>Modifier ${ocarina.name}</h1>
+			<% ocarinaName = ocarina.name%>
+			<% ocarinaId = ocarina.id_type_ocarina%>
+			<% holesNb = ocarina.hole_nb%>
+			<% messageSend = "Modifier"%>
+		%else:
+			<h1>Nouveau type d'Ocarina</h1>
+			<% ocarinaName = ""%>
+			<% ocarinaId= None%>
+			<% holesNb = 0%>
+			<% messageSend = "Ajouter"%>
+		%endif
 		</div>
 		<div class="container">		
-		<form action="addOcarinaSend" method="GET" role="form">
+		<form action="/addOcarinaSend" method="GET" role="form">
 		
 			<div class="form-group">
 				<label for="inputName">Nom</label>
-				<input type="text" name="name" class="form-control" id="inputName" placeholder="Nom">
+				<input type="text" name="name" class="form-control" id="inputName" value="${ocarinaName}" placeholder="nom">
 			</div>
 
 			<div class="form-group">
 				<label for="inputHoles">Nombre de trous</label>
-				<input type="number" name="holes" class="form-control" id="inputHoles" min="1" step="1">
+				<input type="number" name="holes" class="form-control" id="inputHoles" min="1" step="1" value="${holesNb}">
 			</div>		
-			<button type="submit" class="btn btn-primary">Ajouter</button>
+			<input type="hidden" name="ocarina_id" value="${ocarinaId}">
+			<button type="submit" class="btn btn-primary">${messageSend}</button>
 		</form>
 		</div>
 	</div>
