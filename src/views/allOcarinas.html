@@ -16,6 +16,7 @@ ${layout.head("all ocarina view")}
 						<th>Durée minimum</th>
 						<th>Durée maximum</th>
 						<th>Durée totale</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,6 +35,7 @@ ${layout.head("all ocarina view")}
 						<td>${ocarinaInfos[ocarina.id_type_ocarina]["min"]} min</td>
 						<td>${ocarinaInfos[ocarina.id_type_ocarina]["max"]} min</td>
 						<td>${ocarinaInfos[ocarina.id_type_ocarina]["total"]} min</td>
+						<td><a href="ocarina/${ocarina.id_type_ocarina}" class="btn btn-info" role="button"><i class="fa fa-eye"></i></a></td>
 					</tr>
 					%endfor
 				</tbody>

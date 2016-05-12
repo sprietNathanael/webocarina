@@ -14,6 +14,7 @@ ${layout.head("all type media view")}
 						<th>Durée minimum</th>
 						<th>Durée maximum</th>
 						<th>Durée totale</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -24,6 +25,7 @@ ${layout.head("all type media view")}
 						<td>${typeMediaInfos[typeMedia.id_type_media]["min"]} min</td>
 						<td>${typeMediaInfos[typeMedia.id_type_media]["max"]} min</td>
 						<td>${typeMediaInfos[typeMedia.id_type_media]["total"]} min</td>
+						<td><a href="typeMedia/${typeMedia.id_type_media}" class="btn btn-info" role="button"><i class="fa fa-eye"></i></a></td>
 					</tr>
 					%endfor
 				</tbody>
